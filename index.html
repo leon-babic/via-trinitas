@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Via Trinitas d.o.o. – Prijevoz robe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #14297a;        /* boja s vizitke */
+    --navy-dark: #0c1a52;
+    --navy-soft: #e8edf9;
+    --bg: #f6f8fc;
+    --card: #ffffff;
+    --text: #1a2233;
+    --muted: #5b6579;
+    --line: #e1e6f0;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+  section { padding: 80px 0; scroll-margin-top: 74px; }
+  h1, h2, h3, .brand { font-family: 'Oswald', 'Inter', sans-serif; text-transform: uppercase; letter-spacing: .01em; }
+  h2 { font-size: clamp(1.8rem, 3.2vw, 2.5rem); line-height: 1.15; margin-bottom: 12px; color: var(--navy); }
+  h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; color: var(--navy); }
+  .eyebrow { color: var(--navy); opacity: .7; font-weight: 700; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px; }
+  .lead { color: var(--muted); max-width: 640px; margin-bottom: 40px; }
+  .btn { display: inline-block; background: var(--navy); color: #fff; font-weight: 600; padding: 13px 26px; border-radius: 10px; border: 2px solid var(--navy); cursor: pointer; font-size: 1rem; font-family: inherit; transition: background .2s, transform .2s; }
+  .btn:hover { background: var(--navy-dark); transform: translateY(-1px); }
+  .btn.outline { background: transparent; color: var(--navy); }
+  .btn.outline:hover { background: var(--navy-soft); }
+  .btn.light { background: #fff; color: var(--navy); border-color: #fff; }
+  .btn.light:hover { background: var(--navy-soft); }
+
+  /* Header */
+  header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 4px solid var(--navy); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+  .logo { display: flex; align-items: center; gap: 12px; color: var(--navy); }
+  .logo img { height: 46px; width: auto; }
+  .logo .brand { font-size: 1.45rem; font-weight: 700; line-height: 1; }
+  .logo .brand small { font-size: .7em; font-weight: 600; }
+  .nav ul { display: flex; gap: 26px; list-style: none; }
+  .nav ul a { font-weight: 600; color: var(--navy); opacity: .8; transition: opacity .2s; }
+  .nav ul a:hover { opacity: 1; }
+  .menu-btn { display: none; background: none; border: none; color: var(--navy); font-size: 1.8rem; cursor: pointer; }
+
+  /* Hero */
+  .hero { background: #fff; padding: 70px 0 60px; border-bottom: 1px solid var(--line); }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .hero h1 { font-size: clamp(2.3rem, 5vw, 3.5rem); line-height: 1.22; margin-bottom: 18px; color: var(--navy); font-weight: 700; }
+  .hero p { color: var(--muted); font-size: 1.1rem; margin-bottom: 30px; max-width: 520px; }
+  .hero .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .stats { display: flex; gap: 40px; margin-top: 44px; flex-wrap: wrap; }
+  .stats b { display: block; font-family: 'Oswald', sans-serif; font-size: 2rem; color: var(--navy); line-height: 1.2; }
+  .stats small { color: var(--muted); }
+  .hero-img img { width: 100%; height: auto; }
+
+  /* Cards */
+  .grid { display: grid; gap: 24px; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .card { background: var(--card); border-radius: var(--radius); padding: 28px; border: 1px solid var(--line); transition: transform .2s, box-shadow .2s; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(20,41,122,.08); }
+  .icon { width: 52px; height: 52px; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; margin-bottom: 16px; }
+  .card p { color: var(--muted); font-size: .95rem; }
+
+  /* Usluge na plavoj pozadini */
+  #usluge { background: var(--navy); }
+  #usluge h2, #usluge .eyebrow { color: #fff; }
+  #usluge .eyebrow { opacity: .75; }
+  #usluge .lead { color: #c3cbe6; }
+  #usluge .card { border-color: transparent; }
+  #usluge .card:hover { box-shadow: 0 14px 30px rgba(0,0,0,.25); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  /* Klikabilne kartice usluga */
+  .service { display: flex; flex-direction: column; cursor: pointer; }
+  .service .more { margin-top: auto; padding-top: 16px; font-weight: 700; color: var(--navy); }
+  .service:hover .more { text-decoration: underline; }
+  .service .call { display: none; margin-top: 16px; background: var(--navy); color: #fff; padding: 13px; border-radius: 10px; text-align: center; font-weight: 700; font-size: 1.2rem; }
+  .service .call:hover { background: var(--navy-dark); }
+  .service.open .call { display: block; }
+  .service.open .more { display: none; }
+
+  /* Kontakt na plavoj pozadini */
+  #kontakt { background: var(--navy); }
+  #kontakt h2, #kontakt .eyebrow { color: #fff; }
+  #kontakt .lead { color: #c3cbe6; }
+  #kontakt .card { border-color: transparent; }
+
+  /* Fleet */
+  .fleet { background: #fff; }
+  .fleet-card { display: grid; grid-template-columns: 1.1fr 1fr; padding: 0; overflow: hidden; }
+  .fleet-card:hover { transform: none; }
+  .fleet-card .pic { background: var(--navy-soft); display: flex; align-items: center; justify-content: center; padding: 30px; }
+  .fleet-card .pic img { width: 100%; max-width: 400px; height: auto; }
+  .fleet-card .body { padding: 34px; }
+  .specs { list-style: none; margin-top: 16px; color: var(--muted); }
+  .specs li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--line); }
+  .specs li b { color: var(--text); text-align: right; }
+
+  /* Team */
+  .driver { text-align: center; }
+  .avatar { width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 16px; overflow: hidden; border: 4px solid var(--navy-soft); }
+  .driver .role { color: var(--muted); font-weight: 600; font-size: .9rem; }
+
+  /* Cjenik */
+  .prices { background: var(--navy); color: #fff; }
+  .prices h2, .prices .eyebrow { color: #fff; }
+  .prices .lead { color: #c3cbe6; }
+  .price-top { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 30px; }
+  .panel { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); padding: 26px; }
+  label { display: block; font-weight: 600; font-size: .9rem; margin-bottom: 6px; }
+  input, select, textarea { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); font-family: inherit; font-size: 1rem; background: #fff; color: var(--text); }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--navy); border-color: transparent; }
+  .prices input:focus, .prices select:focus { outline-color: #9fb3ff; }
+  .result { display: flex; flex-direction: column; justify-content: center; }
+  .result .price { font-family: 'Oswald', sans-serif; font-size: 3.2rem; font-weight: 700; line-height: 1; margin: 6px 0; }
+  .result .note { color: #c3cbe6; font-size: .88rem; margin-bottom: 18px; }
+  .prices .field { margin-bottom: 20px; }
+  .prices .field:last-child { margin-bottom: 0; }
+  /* Prijedlozi mjesta dok korisnik tipka */
+  .ac { position: relative; }
+  .suggest { list-style: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; color: var(--text); border-radius: 10px; box-shadow: 0 14px 34px rgba(0,0,0,.25); overflow: hidden; z-index: 20; display: none; max-height: 290px; overflow-y: auto; }
+  .suggest.open { display: block; }
+  .suggest li { padding: 11px 14px; cursor: pointer; border-bottom: 1px solid var(--line); }
+  .suggest li:last-child { border-bottom: none; }
+  .suggest li:hover, .suggest li.hl { background: var(--navy-soft); color: var(--navy); }
+  .suggest li mark { background: none; color: var(--navy); font-weight: 700; }
+  .suggest li.none { color: var(--muted); cursor: default; background: #fff; }
+  .suggest li.extra { color: var(--navy); font-weight: 600; background: var(--bg); }
+  .suggest li.extra.hl, .suggest li.extra:hover { background: var(--navy-soft); }
+  .prices .hint { color: #c3cbe6; margin-top: 8px; }
+  .prices .row { gap: 12px; }
+  .pick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .pick label small { display: block; font-weight: 400; font-size: .78rem; color: #c3cbe6; }
+  .pick input { display: none; }
+  .pick label { background: rgba(255,255,255,.05); border: 2px solid rgba(255,255,255,.15); border-radius: 10px; padding: 11px 8px; text-align: center; cursor: pointer; font-size: .92rem; margin: 0; transition: all .2s; }
+  .pick input:checked + label { border-color: #fff; background: rgba(255,255,255,.14); }
+  .prices .fine { color: #c3cbe6; font-size: .92rem; margin-top: 24px; max-width: 760px; }
+
+  /* Order */
+  .order-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; align-items: start; }
+  .steps { list-style: none; counter-reset: s; }
+  .steps li { counter-increment: s; position: relative; padding-left: 52px; margin-bottom: 24px; }
+  .steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--navy); color: #fff; font-weight: 700; display: grid; place-items: center; }
+  .steps b { display: block; }
+  .steps span { color: var(--muted); font-size: .95rem; }
+  .field { margin-bottom: 18px; }
+  form.card:hover { transform: none; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .hint { color: var(--muted); font-size: .82rem; margin-top: 4px; }
+  .summary { background: var(--navy-soft); color: var(--navy); border-radius: 10px; padding: 12px 16px; font-size: .95rem; margin-bottom: 18px; display: none; }
+  .success { display: none; text-align: center; padding: 30px 10px; }
+  .success .tick { width: 70px; height: 70px; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; margin: 0 auto 16px; font-size: 2rem; }
+
+  /* Contact / footer */
+  .contact { background: #fff; }
+  .contact .card { text-align: center; }
+  .contact .card p { word-break: break-word; font-size: 1rem; }
+  .contact .card a:hover { text-decoration: underline; }
+  .contact .icon { margin: 0 auto 14px; }
+  footer { background: #fff; border-top: 4px solid var(--navy); color: var(--muted); padding: 30px 0; font-size: .9rem; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+
+  /* Responsive */
+  @media (max-width: 920px) {
+    .hero .wrap, .order-wrap, .fleet-card, .price-top { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+    .hero-img { order: -1; max-width: 460px; }
+    .nav ul { gap: 18px; }
+  }
+  @media (max-width: 760px) {
+    .menu-btn { display: block; }
+    .nav ul { display: none; position: absolute; top: 74px; left: 0; right: 0; background: #fff; flex-direction: column; gap: 0; padding: 6px 20px 16px; border-bottom: 4px solid var(--navy); }
+    .nav ul.open { display: flex; }
+    .nav ul a { display: block; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    section { padding: 60px 0; }
+    .grid-3, .grid-2, .row, .pick { grid-template-columns: 1fr; }
+    .stats { gap: 26px; }
+    .logo img { height: 38px; }
+    .logo .brand { font-size: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">
+      <img src="slike/logo-kamion.png" alt="">
+      <span class="brand">Via Trinitas <small>d.o.o.</small></span>
+    </a>
+    <button class="menu-btn" aria-label="Izbornik" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+    <ul id="menu">
+      <li><a href="#usluge">Usluge</a></li>
+      <li><a href="#flota">Kamioni</a></li>
+      <li><a href="#cjenik">Cijene</a></li>
+      <li><a href="#narudzba">Naruči</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="#tim">Tim</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Via Trinitas d.o.o.</div>
+      <h1>Prijevoz robe po Zadarskoj županiji i okolici</h1>
+      <p>Prevozimo vašu robu kamionima nosivosti 12,5 tona. Termin i cijenu prijevoza dogovaramo izravno s vama.</p>
+      <div class="actions">
+        <a href="#cjenik" class="btn">Okvirne cijene</a>
+        <a href="#narudzba" class="btn outline">Naruči prijevoz</a>
+      </div>
+      <div class="stats">
+        <div><b>2</b><small>kamiona</small></div>
+        <div><b>12,5 tona</b><small>nosivost po kamionu</small></div>
+        <div><b>od 60 €</b><small>okvirno, za 1–2 palete</small></div>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="slike/logo-kamion.png" alt="Kamion Via Trinitas">
+    </div>
+  </div>
+</section>
+
+<section id="usluge">
+  <div class="wrap">
+    <div class="eyebrow">Što radimo</div>
+    <h2>Naše usluge</h2>
+    <p class="lead">Mala firma, izravan dogovor. Razgovarate s ljudima koji će vam robu i prevesti.</p>
+    <div class="grid grid-3">
+      <a href="#cjenik" class="card service">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg></div>
+        <h3>Prijevoz robe</h3>
+        <p>Kamioni su nosivosti 12,5 tona, a po turi uobičajeno prevozimo oko 8,5 tona robe. Manje količine (1–2 palete) možemo povesti usput kad taj dan već vozimo prema vašem mjestu. Robu dostavljamo do vrata ili onoliko blizu koliko je na adresi moguće.</p>
+        <span class="more">Izračunaj okvirnu cijenu →</span>
+      </a>
+      <div class="card service call-card" role="button" tabindex="0" aria-expanded="false">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></div>
+        <h3>Hitna dostava</h3>
+        <p>Trebate dostavu još danas? Hitne dostave za isti dan imaju zasebnu cijenu, a dogovaramo ih telefonom.</p>
+        <span class="more">Prikaži broj za poziv</span>
+        <a class="call" href="tel:+385998749991">📞 099 874 9991</a>
+      </div>
+      <div class="card service call-card" role="button" tabindex="0" aria-expanded="false">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg></div>
+        <h3>Selidbe</h3>
+        <p>Selimo stanove, kuće i urede. Detalje i cijenu selidbe dogovaramo telefonom.</p>
+        <span class="more">Prikaži broj za poziv</span>
+        <a class="call" href="tel:+385998749991">📞 099 874 9991</a>
+      </div>
+    </div>
+    <div class="grid grid-2" style="margin-top:24px">
+      <div class="card">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <h3>Zadar i okolica</h3>
+        <p>Vozimo po Zadarskoj županiji, na Pag i otoke Ugljan i Pašman, te do Vodica i Šibenika.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+        <h3>Ostala mjesta na upit</h3>
+        <p>Vašeg mjesta nema u cjeniku ili trebate prijevoz u drugu županiju? Pošaljite upit i dogovorit ćemo se.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="flota" class="fleet">
+  <div class="wrap">
+    <div class="eyebrow">Vozni park</div>
+    <h2>Naši kamioni</h2>
+    <p class="lead">Dva kamiona spremna za vaš teret.</p>
+    <!-- Ovdje kasnije ide prava fotografija kamiona -->
+    <div class="card fleet-card">
+      <div class="pic"><img src="slike/logo-kamion.png" alt="Kamion"></div>
+      <div class="body">
+        <h3>Kamion nosivosti 12,5 tona</h3>
+        <p>Za prijevoz robe, materijala i većih pošiljki.</p>
+        <ul class="specs">
+          <li>Broj kamiona <b>2</b></li>
+          <li>Nosivost <b>12,5 tona po kamionu</b></li>
+          <li>Uobičajeni teret <b>oko 8,5 tona robe</b></li>
+          <li>Područje <b>Zadarska županija i okolica</b></li>
+          <li>Ostala mjesta <b>na upit</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cjenik" class="prices">
+  <div class="wrap">
+    <div class="eyebrow">Okvirne cijene</div>
+    <h2>Koliko košta prijevoz?</h2>
+    <p class="lead">Upišite mjesto dostave i odaberite količinu robe. Cijene su okvirne, a konačnu cijenu dogovaramo s vama.</p>
+
+    <div class="price-top">
+      <div class="panel">
+        <div class="field">
+          <label for="search">Mjesto dostave</label>
+          <div class="ac">
+            <input id="search" type="text" placeholder="Počnite pisati, npr. Biograd" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="suggest">
+            <ul class="suggest" id="suggest" role="listbox"></ul>
+          </div>
+        </div>
+        <div class="field">
+          <label>Količina robe</label>
+          <div class="pick">
+            <input type="radio" name="amount" id="am1" value="small" checked><label for="am1">1–2 palete</label>
+            <input type="radio" name="amount" id="am3" value="piece"><label for="am3">Komadna roba<small>hladnjak, peć, perilica…</small></label>
+            <input type="radio" name="amount" id="am2" value="big"><label for="am2">Više robe / cijeli kamion</label>
+          </div>
+        </div>
+        <div class="field" id="pieceBox" style="display:none">
+          <div class="row">
+            <div><label for="komada">Broj komada</label><input id="komada" type="number" min="1" value="1"></div>
+            <div><label for="kat">Kat (0 = prizemlje)</label><input id="kat" type="number" min="0" value="0"></div>
+          </div>
+          <div class="hint">Unos na kat: 5 € po katu, po komadu.</div>
+        </div>
+      </div>
+      <div class="panel result">
+        <div id="placeName">Upišite mjesto dostave</div>
+        <div class="price" id="price">–</div>
+        <div class="note" id="priceNote">Okvirna cijena · konačnu dogovaramo s vama</div>
+        <a href="#narudzba" class="btn light" id="orderWithPrice">Naruči prijevoz</a>
+      </div>
+    </div>
+
+    <p class="fine">Okvirne cijene vrijede za manje količine robe (1–2 palete) koje možemo povesti usput kad taj dan već vozimo prema vašem mjestu. Za veće količine ili cijeli kamion robe cijena se dogovara posebno. Robu dostavljamo do vrata ili onoliko blizu koliko je na adresi moguće. Komadnu robu poput hladnjaka, peći ili perilice unosimo na kat uz doplatu od 5 € po katu, po komadu.</p>
+  </div>
+</section>
+
+<section id="narudzba">
+  <div class="wrap order-wrap">
+    <div>
+      <div class="eyebrow">Narudžba</div>
+      <h2>Naručite prijevoz</h2>
+      <p class="lead">Pošaljite nam upit, a mi ćemo vam se javiti da zajedno dogovorimo termin koji odgovara i vama i nama.</p>
+      <ul class="steps">
+        <li><b>Pošaljite upit</b><span>Napišite odakle i kamo vozimo te što.</span></li>
+        <li><b>Javljamo vam se</b><span>Dogovaramo termin prijevoza.</span></li>
+        <li><b>Dostava do vrata</b><span>Dolazimo u dogovoreno vrijeme i dostavljamo robu do vrata ili onoliko blizu koliko je na adresi moguće.</span></li>
+      </ul>
+    </div>
+    <form class="card" id="orderForm">
+      <div id="formFields">
+        <div class="summary" id="summary"></div>
+        <div class="row">
+          <div class="field"><label for="ime">Ime i prezime / tvrtka</label><input id="ime" required placeholder="npr. Ivan Horvat"></div>
+          <div class="field"><label for="tel">Telefon</label><input id="tel" type="tel" required placeholder="09x xxx xxxx"></div>
+        </div>
+        <div class="field"><label for="email">E-mail</label><input id="email" type="email" placeholder="ime@primjer.hr"></div>
+        <div class="row">
+          <div class="field"><label for="mjesto">Mjesto dostave</label><select id="mjesto" required></select></div>
+          <div class="field"><label for="kolicina">Količina robe</label>
+            <select id="kolicina"><option value="small">1–2 palete</option><option value="piece">Komadna roba (hladnjak, peć…)</option><option value="big">Više robe / cijeli kamion</option></select>
+          </div>
+        </div>
+        <div class="field" id="mjestoOwnWrap" style="display:none"><label for="mjestoOwn">Upišite mjesto dostave</label><input id="mjestoOwn" placeholder="npr. Gračac">
+          <div class="hint">Za mjesta koja nisu na popisu cijenu ćemo vam javiti.</div>
+        </div>
+        <div class="row" id="fPieceRow" style="display:none">
+          <div class="field"><label for="fKomada">Broj komada</label><input id="fKomada" type="number" min="1" value="1"></div>
+          <div class="field"><label for="fKat">Kat (0 = prizemlje)</label><input id="fKat" type="number" min="0" value="0">
+            <div class="hint">Unos na kat: 5 € po katu, po komadu.</div>
+          </div>
+        </div>
+        <div class="field"><label for="adresa">Adresa dostave</label><input id="adresa" required placeholder="Ulica i kućni broj">
+          <div class="hint">Dostavljamo do vrata ili onoliko blizu koliko je na adresi moguće.</div>
+        </div>
+        <div class="field"><label for="od">Odakle preuzimamo robu?</label>
+          <div class="ac">
+            <input id="od" type="text" required placeholder="Odaberite trgovinu ili upišite adresu" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="odSuggest">
+            <ul class="suggest" id="odSuggest" role="listbox"></ul>
+          </div>
+        </div>
+        <div class="field" id="odOwnWrap" style="display:none"><label for="odOwn">Adresa preuzimanja</label><input id="odOwn" placeholder="npr. garaža, Plovanija 12, Zadar"></div>
+        <div class="field"><label for="opis">Što prevozimo?</label><textarea id="opis" rows="3" placeholder="Opišite teret i otprilike koliko je težak"></textarea></div>
+        <button class="btn" type="submit" style="width:100%">Pošalji upit</button>
+      </div>
+      <div class="success" id="success">
+        <div class="tick">✓</div>
+        <h3>Još samo jedan korak!</h3>
+        <p style="color:var(--muted);margin-top:8px">Upit je spreman u e-mailu. Samo ga pošaljite, a mi ćemo vam se javiti da dogovorimo termin.</p>
+        <p style="color:var(--muted);margin-top:14px;font-size:.92rem">Ako se e-mail nije sam otvorio, odaberite kako ga želite poslati:</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px">
+          <a class="btn" id="gmailBtn" href="#" target="_blank" rel="noopener">Pošalji preko Gmaila</a>
+          <a class="btn outline" id="mailApp" href="#">Otvori mail aplikaciju</a>
+        </div>
+        <p style="color:var(--muted);margin-top:16px"><small>Ili nas nazovite na <a href="tel:+385998749991" style="color:var(--navy);font-weight:600">099 874 9991</a>.</small></p>
+        <button class="btn" type="button" style="margin-top:20px" onclick="resetForm()">Novi upit</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section id="kontakt" class="contact">
+  <div class="wrap">
+    <div class="eyebrow">Kontakt</div>
+    <h2>Javite nam se</h2>
+    <p class="lead">Nazovite nas ili pošaljite e-mail.</p>
+    <div class="grid grid-3">
+      <div class="card"><div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></div><h3>Telefon</h3><p><a href="tel:+385998749991">099 874 9991</a></p></div>
+      <div class="card"><div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></div><h3>E-mail</h3><p><a href="mailto:via.trinitas.info@gmail.com">via.trinitas.info@gmail.com</a></p></div>
+      <div class="card"><div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>Adresa</h3><p>Ante Baljak-Pajo 64, Lovinac</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="tim">
+  <div class="wrap">
+    <div class="eyebrow">Naš tim</div>
+    <h2>Tko smo mi</h2>
+    <p class="lead">Troje ljudi koji brinu da vaša roba stigne tamo gdje treba.</p>
+    <div class="grid grid-3" id="team"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo"><img src="slike/logo-kamion.png" alt="" style="height:34px"><span class="brand">Via Trinitas <small>d.o.o.</small></span></div>
+    <div>© 2026 Via Trinitas d.o.o.</div>
+  </div>
+</footer>
+
+<script>
+  // ---------- Tim (fotografije dodati kasnije) ----------
+  const team = [
+    { name: 'Luka Ikić',     role: 'Vozač', shirt: '#14297a', skin: '#e8b48a' },
+    { name: 'Martin Baljak', role: 'Vozač', shirt: '#3554b8', skin: '#d9a07a' },
+    { name: 'Antonio Čelić', role: 'Vozač', shirt: '#5d78d1', skin: '#f0c49e' },
+  ];
+  const avatar = d => `
+    <svg viewBox="0 0 110 110" width="110" height="110">
+      <rect width="110" height="110" fill="#e8edf9"/>
+      <path d="M15 110c0-25 18-38 40-38s40 13 40 38z" fill="${d.shirt}"/>
+      <circle cx="55" cy="45" r="21" fill="${d.skin}"/>
+      <path d="M34 42c0-14 9-21 21-21s21 7 21 19c-6-5-14-7-21-7s-15 3-21 9z" fill="#3b2a20"/>
+    </svg>`;
+  document.getElementById('team').innerHTML = team.map(d => `
+    <div class="card driver">
+      <div class="avatar">${avatar(d)}</div>
+      <h3>${d.name}</h3>
+      <div class="role">${d.role}</div>
+    </div>`).join('');
+
+  // ---------- Cjenik (prema cjeniku firme) ----------
+  const prices = [
+    ['Zadar', 60], ['Bibinje', 60], ['Sukošan', 70], ['Sv. Petar', 80], ['Turanj', 80],
+    ['Sv. Filip i Jakov', 90], ['Biograd', 100], ['Pakoštane', 110], ['Drage', 120],
+    ['Pirovac', 130], ['Vodice', 150], ['Tribunj', 160], ['Šibenik', 220],
+    ['Kožino', 70], ['Petrčane', 80], ['Zaton', 80], ['Nin', 80], ['Vrsi', 80],
+    ['Privlaka', 90], ['Vir', 100],
+    ['Poljaci', 60], ['Poljica Brig', 70], ['Ljubač', 80], ['Ražanac', 90], ['Rtina', 100],
+    ['Pag', 120], ['Novalja', 180],
+    ['Murvica', 60], ['Poličnik', 70], ['Posedarje', 80], ['Vinjerac', 80], ['Slivnica', 90],
+    ['Maslenica', 90], ['Rovanjska', 90], ['Starigrad', 100], ['Obrovac', 120], ['Benkovac', 120],
+    ['Ugljan – Pašman', 200],
+  ].sort((a, b) => a[0].localeCompare(b[0], 'hr'));
+
+  // Mjesta preuzimanja: trgovine odakle se najčešće vozi roba (popis se lako dopuni)
+  const pickups = [
+    // građevinski materijal i oprema za dom
+    'Bauhaus Zadar', 'Pevex Zadar', 'Građa Maxmart', 'Lignum Zadar', 'Tegula centar Zadar', 'Velekem Zadar',
+    // namještaj
+    'Emmezeta Zadar', 'Lesnina XXXL Zadar', 'Mömax Zadar', 'JYSK Zadar',
+    // bijela tehnika i elektronika
+    'Harvey Norman Zadar', 'Elipso Zadar', 'Sancta Domenica Zadar', 'Big Bang Zadar', 'Kralj Zadar',
+    'Elektromaterijal Šare Zadar',
+    // ostalo
+    'Decathlon Zadar',
+  ].sort((a, b) => a.localeCompare(b, 'hr'));
+
+  const $ = id => document.getElementById(id);
+  const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd');
+  const OTHER = '__upit', OWN = '__own';
+  const PER_FLOOR = 5;   // € po katu, po komadu (komadna roba)
+  let selected = null;   // odabrano mjesto dostave
+  let amount = 'small';  // 'small' = 1–2 palete, 'piece' = komadna roba, 'big' = više robe / cijeli kamion
+  let pieces = 1, floor = 0;
+  let customPlace = '';  // mjesto koje korisnik sam upiše (nije na popisu)
+  const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  // ---------- Padajući prijedlozi dok korisnik tipka ----------
+  // Velika/mala slova i kvačice nisu bitni ("sib" nađe Šibenik).
+  function autocomplete(input, list, items, opts) {
+    let shown = [], hl = -1;
+    const mark = (n, q) => {
+      if (!q) return n;
+      const k = norm(n).indexOf(q);
+      return n.slice(0, k) + '<mark>' + n.slice(k, k + q.length) + '</mark>' + n.slice(k + q.length);
+    };
+    function build() {
+      const q = norm(input.value.trim());
+      if (!q && !opts.showAll) { close(); return; }
+      shown = (q ? items.filter(n => norm(n).includes(q)) : items.slice())
+        .sort((a, b) => norm(b).startsWith(q) - norm(a).startsWith(q))
+        .map(n => ({ value: n, html: mark(n, q) }));
+      const extra = typeof opts.extra === 'function' ? opts.extra(input.value.trim()) : opts.extra;
+      if (extra) shown.push({ value: extra.value, html: extra.label, cls: 'extra' });
+      hl = shown.length ? 0 : -1;
+      draw();
+    }
+    function draw() {
+      list.innerHTML = shown.length
+        ? shown.map((o, i) => `<li role="option" data-i="${i}" class="${o.cls || ''} ${i === hl ? 'hl' : ''}">${o.html}</li>`).join('')
+        : `<li class="none">${opts.emptyText}</li>`;
+      list.classList.add('open');
+      input.setAttribute('aria-expanded', 'true');
+    }
+    function close() { list.classList.remove('open'); input.setAttribute('aria-expanded', 'false'); }
+    function pick(i) { opts.onPick(shown[i].value); close(); }
+
+    input.addEventListener('input', () => { if (opts.onType) opts.onType(); build(); });
+    input.addEventListener('focus', build);
+    input.addEventListener('blur', () => setTimeout(close, 120));
+    list.addEventListener('mousedown', e => {
+      const li = e.target.closest('li[data-i]');
+      if (li) { e.preventDefault(); pick(+li.dataset.i); }
+    });
+    input.addEventListener('keydown', e => {
+      if (!list.classList.contains('open') || !shown.length) return;
+      if (e.key === 'ArrowDown') { hl = (hl + 1) % shown.length; draw(); e.preventDefault(); }
+      if (e.key === 'ArrowUp')   { hl = (hl - 1 + shown.length) % shown.length; draw(); e.preventDefault(); }
+      if (e.key === 'Enter' && hl >= 0) { pick(hl); e.preventDefault(); }
+      if (e.key === 'Escape') close();
+    });
+  }
+
+  // Mjesto dostave (cijene)
+  autocomplete($('search'), $('suggest'), prices.map(p => p[0]), {
+    emptyText: 'Tog mjesta nema na popisu, cijena je na upit.',
+    // Ako upisanog mjesta nema na popisu, nudimo ga kao "drugo mjesto" (cijena na upit)
+    extra: raw => raw && !prices.some(p => norm(p[0]) === norm(raw))
+      ? { value: OTHER, label: `✎ Drugo mjesto: „${esc(raw)}” (cijena na upit)` } : null,
+    onType: () => { if (selected && $('search').value !== (selected === OTHER ? customPlace : selected)) select(null, false); },
+    onPick: name => {
+      if (name === OTHER) customPlace = $('search').value.trim();
+      select(name);
+    },
+  });
+
+  // Mjesto preuzimanja (obrazac)
+  autocomplete($('od'), $('odSuggest'), pickups, {
+    showAll: true,
+    extra: { value: OWN, label: '✎ Druga adresa: upišite sami (npr. vaša garaža, kuća)' },
+    onType: () => toggleOwn(false),
+    onPick: v => {
+      if (v === OWN) {
+        const typed = $('od').value.trim();   // ono što je korisnik već upisao prenosimo u polje za adresu
+        if (typed && typed !== 'Druga adresa' && !pickups.includes(typed)) $('odOwn').value = typed;
+        $('od').value = 'Druga adresa'; toggleOwn(true); $('odOwn').focus();
+      }
+      else { $('od').value = v; toggleOwn(false); }
+    },
+  });
+  function toggleOwn(on) {
+    $('odOwnWrap').style.display = on ? 'block' : 'none';
+    $('odOwn').required = on;
+  }
+
+  // ---------- Mjesto, količina i komadi (sinkronizirano između cijena i obrasca) ----------
+  $('mjesto').innerHTML = '<option value="">Odaberite mjesto…</option>' +
+    prices.map(([n]) => `<option value="${n}">${n}</option>`).join('') +
+    `<option value="${OTHER}">Drugo mjesto</option>`;
+  $('mjesto').addEventListener('change', () => {
+    select($('mjesto').value || null);
+    if (selected === OTHER) $('mjestoOwn').focus();
+  });
+  $('mjestoOwn').addEventListener('input', () => {
+    customPlace = $('mjestoOwn').value.trim();
+    $('search').value = customPlace;
+    render('mjestoOwn');
+  });
+  $('kolicina').addEventListener('change', () => setAmount($('kolicina').value));
+  document.querySelectorAll('input[name=amount]').forEach(r => r.addEventListener('change', () => setAmount(r.value)));
+  ['komada', 'fKomada', 'kat', 'fKat'].forEach(id => $(id).addEventListener('input', () => {
+    if (id.toLowerCase().includes('komada')) pieces = Math.max(1, Math.floor(+$(id).value || 1));
+    else floor = Math.max(0, Math.floor(+$(id).value || 0));
+    render(id);
+  }));
+
+  function select(name, fillInput = true) {
+    selected = name;
+    if (name !== OTHER) customPlace = '';
+    if (fillInput) $('search').value = name === OTHER ? customPlace : prices.some(p => p[0] === name) ? name : '';
+    $('mjesto').value = name || '';
+    render();
+  }
+  function setAmount(a) {
+    amount = a;
+    document.querySelector(`input[name=amount][value=${a}]`).checked = true;
+    $('kolicina').value = a;
+    render();
+  }
+
+  function render(typingIn) {
+    // Polja za komade vidljiva samo za komadnu robu; vrijednosti iste u oba dijela
+    $('pieceBox').style.display = $('fPieceRow').style.display = amount === 'piece' ? '' : 'none';
+    ['komada', 'fKomada'].forEach(id => { if (id !== typingIn) $(id).value = pieces; });
+    ['kat', 'fKat'].forEach(id => { if (id !== typingIn) $(id).value = floor; });
+
+    // Polje za upis drugog mjesta u obrascu
+    $('mjestoOwnWrap').style.display = selected === OTHER ? 'block' : 'none';
+    $('mjestoOwn').required = selected === OTHER;
+    if (typingIn !== 'mjestoOwn') $('mjestoOwn').value = customPlace;
+
+    const entry = prices.find(p => p[0] === selected);
+    const carry = amount === 'piece' ? pieces * floor * PER_FLOOR : 0;
+    const note = $('priceNote');
+    const where = entry ? entry[0] : customPlace;
+    $('placeName').textContent = !selected ? 'Upišite mjesto dostave' : where ? 'Prijevoz do: ' + where : 'Drugo mjesto';
+
+    if (!selected) {
+      $('price').textContent = '–';
+      note.textContent = 'Okvirna cijena · konačnu dogovaramo s vama';
+    } else if (!entry) {
+      $('price').textContent = 'Na upit';
+      note.textContent = 'Cijenu ćemo vam javiti nakon upita';
+    } else if (amount === 'big') {
+      $('price').textContent = 'Na upit';
+      note.textContent = 'Za veće količine cijena ovisi o količini robe';
+    } else if (amount === 'piece') {
+      $('price').textContent = 'oko ' + (entry[1] + carry) + ' €';
+      note.textContent = floor > 0
+        ? `${entry[1]} € prijevoz + ${carry} € unos na kat (${pieces} kom × ${floor}. kat × ${PER_FLOOR} €)`
+        : `${entry[1]} € prijevoz · bez unosa na kat (prizemlje)`;
+    } else {
+      $('price').textContent = 'oko ' + entry[1] + ' €';
+      note.textContent = 'Okvirno za 1–2 palete · konačnu cijenu dogovaramo s vama';
+    }
+
+    // Sažetak u obrascu za narudžbu
+    const s = $('summary');
+    if (!selected) { s.style.display = 'none'; return; }
+    const price = entry && amount !== 'big' ? `okvirno <b>${entry[1] + carry} €</b>` : 'cijenu ćemo vam javiti';
+    s.innerHTML = `<b>Prijevoz do: ${esc(where || 'drugo mjesto')}</b> · ${price}`;
+    s.style.display = 'block';
+  }
+  render();
+
+  // ---------- Upit: otvara mail stranke s već upisanom porukom ----------
+  const COMPANY_EMAIL = 'via.trinitas.info@gmail.com';
+  const AMOUNT_LABEL = { small: '1–2 palete', piece: 'Komadna roba', big: 'Više robe / cijeli kamion' };
+
+  function buildMailto() {
+    const val = id => $(id).value.trim();
+    const entry = prices.find(p => p[0] === selected);
+    const where = entry ? entry[0] : (customPlace || 'drugo mjesto');
+    const carry = amount === 'piece' ? pieces * floor * PER_FLOOR : 0;
+    const price = entry && amount !== 'big' ? `okvirno ${entry[1] + carry} €` : 'na upit';
+    const pickup = val('od') === 'Druga adresa' ? val('odOwn') : val('od');
+
+    const lines = [
+      'Pozdrav,', '', 'šaljem upit za prijevoz:', '',
+      'Ime i prezime / tvrtka: ' + val('ime'),
+      'Telefon: ' + val('tel'),
+      val('email') ? 'E-mail: ' + val('email') : null,
+      '',
+      'Mjesto dostave: ' + where,
+      'Adresa dostave: ' + val('adresa'),
+      'Preuzimanje: ' + pickup,
+      'Količina robe: ' + AMOUNT_LABEL[amount],
+      amount === 'piece' ? `Broj komada: ${pieces}, kat: ${floor}` : null,
+      'Okvirna cijena sa stranice: ' + price,
+      val('opis') ? '\nŠto prevozimo:\n' + val('opis') : null,
+      '', 'Hvala!',
+    ].filter(l => l !== null);
+
+    const subject = encodeURIComponent(`Upit za prijevoz: ${where}`);
+    const body = encodeURIComponent(lines.join('\n'));
+    return {
+      mailto: `mailto:${COMPANY_EMAIL}?subject=${subject}&body=${body}`,
+      // Rezerva za one koji nemaju mail aplikaciju: Gmail u pregledniku
+      gmail: `https://mail.google.com/mail/?view=cm&fs=1&to=${COMPANY_EMAIL}&su=${subject}&body=${body}`,
+    };
+  }
+
+  $('orderForm').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!selected) { $('mjesto').focus(); return; }
+    const links = buildMailto();
+    $('mailApp').href = links.mailto;
+    $('gmailBtn').href = links.gmail;
+    window.location.href = links.mailto;
+    $('formFields').style.display = 'none';
+    $('success').style.display = 'block';
+  });
+  function resetForm() {
+    $('orderForm').reset();
+    pieces = 1; floor = 0; customPlace = '';
+    toggleOwn(false);
+    select(null);
+    setAmount('small');
+    $('formFields').style.display = 'block';
+    $('success').style.display = 'none';
+  }
+
+  // Hitna dostava / selidbe: klik na karticu prikaže broj za poziv
+  document.querySelectorAll('.call-card').forEach(card => {
+    const open = () => { card.classList.add('open'); card.setAttribute('aria-expanded', 'true'); };
+    card.addEventListener('click', e => { if (!e.target.closest('.call')) open(); });
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { open(); e.preventDefault(); } });
+  });
+
+  document.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => $('menu').classList.remove('open')));
+</script>
+</body>
+</html>
